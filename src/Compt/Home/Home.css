@@ -1,0 +1,1707 @@
+/* ==========================================================================
+   FUTURISTIC EV RIDE DASHBOARD STYLESHEET
+   Apple, Tesla, and Sci-Fi Inspired Glassmorphic Dark UI Theme
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --bg-dark: #07070c;
+  --bg-panel: rgba(13, 13, 23, 0.65);
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --accent-cyan: #00d4ff;
+  --accent-cyan-glow: rgba(0, 212, 255, 0.35);
+  --accent-green: #00ff88;
+  --accent-green-glow: rgba(0, 255, 136, 0.3);
+  --accent-red: #ff4466;
+  --text-primary: #f0f0f8;
+  --text-secondary: #8c8c9e;
+  --text-muted: #535366;
+  --font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Base resets & Theme colors */
+.ev-app-page {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  font-family: var(--font-family);
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.ev-app-page.light-mode {
+  --bg-dark: #f0f2f5;
+  --bg-panel: rgba(255, 255, 255, 0.75);
+  --border-glass: rgba(0, 0, 0, 0.08);
+  --text-primary: #12121c;
+  --text-secondary: #5a5a6a;
+  --text-muted: #9090a0;
+}
+
+/* ─── FLOATING TOP NAVBAR ─── */
+.ev-navbar {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  height: 70px;
+  background: var(--bg-panel);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid var(--border-glass);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  z-index: 100;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.brand-bolt {
+  font-size: 1.6rem;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: pulse-glow 2s infinite alternate;
+}
+
+.brand-text {
+  font-weight: 800;
+  font-size: 1.3rem;
+  letter-spacing: 1.5px;
+  background: linear-gradient(to right, #ffffff, var(--text-secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-menu li {
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 10px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.nav-menu li:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-menu li.active {
+  color: var(--accent-cyan);
+  background: rgba(0, 212, 255, 0.08);
+  border: 1px solid rgba(0, 212, 255, 0.15);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.nav-search-bar {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-glass);
+  border-radius: 12px;
+  padding: 6px 14px;
+  width: 250px;
+  transition: all 0.3s ease;
+}
+
+.nav-search-bar:focus-within {
+  width: 320px;
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 10px var(--accent-cyan-glow);
+}
+
+.nav-search-bar input {
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-size: 0.88rem;
+  width: 100%;
+}
+
+.nav-search-bar input::placeholder {
+  color: var(--text-muted);
+}
+
+.search-icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-toggle, .nav-notif-btn, .nav-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-glass);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.nav-toggle:hover, .nav-notif-btn:hover, .nav-avatar:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--accent-cyan);
+}
+
+.notif-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: var(--accent-red);
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Notification & Profile Dropdowns */
+.notif-dropdown, .profile-dropdown {
+  position: absolute;
+  top: 80px;
+  right: 0;
+  width: 300px;
+  background: var(--bg-panel);
+  backdrop-filter: blur(25px);
+  border: 1px solid var(--border-glass);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  z-index: 1000;
+}
+
+.profile-dropdown {
+  width: 220px;
+}
+
+.notif-header, .profile-header {
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--border-glass);
+  padding-bottom: 8px;
+}
+
+.profile-sub {
+  font-size: 0.75rem;
+  color: var(--accent-green);
+  margin-top: -8px;
+  margin-bottom: 12px;
+}
+
+.notif-item {
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.notif-item-text {
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+.notif-item-time {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.profile-item {
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.profile-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--accent-cyan);
+}
+
+.profile-divider {
+  height: 1px;
+  background: var(--border-glass);
+  margin: 8px 0;
+}
+
+/* ─── MAIN CONTENT SYSTEM ─── */
+.ev-main-layout {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.map-view-panel {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 5;
+}
+
+/* Floating Card Container styles */
+.floating-card {
+  position: absolute;
+  background: var(--bg-panel);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid var(--border-glass);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+/* ─── LEFT FLOATING BOOKING CARD ─── */
+.left-booking-card {
+  top: 105px;
+  left: 20px;
+  width: 400px;
+  max-height: calc(100vh - 290px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.left-booking-card::-webkit-scrollbar {
+  width: 4px;
+}
+
+.left-booking-card::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.1);
+  border-radius: 2px;
+}
+
+.card-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0 0 20px;
+  background: linear-gradient(135deg, #ffffff, var(--text-secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.booking-inputs-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.booking-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.booking-input-group label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-secondary);
+}
+
+.booking-input-group input, .booking-input-group select {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-glass);
+  border-radius: 10px;
+  padding: 12px;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.9rem;
+  outline: none;
+  transition: all 0.25s;
+}
+
+.booking-input-group input:focus, .booking-input-group select:focus {
+  border-color: var(--accent-cyan);
+  background: rgba(0, 212, 255, 0.02);
+}
+
+.input-with-button {
+  display: flex;
+  gap: 8px;
+}
+
+.input-with-button input {
+  flex: 1;
+}
+
+.gps-btn {
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.25);
+  border-radius: 10px;
+  width: 45px;
+  color: var(--accent-cyan);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.gps-btn:hover {
+  background: var(--accent-cyan);
+  color: black;
+}
+
+.booking-row {
+  display: flex;
+  gap: 12px;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+/* Green Energy Fare box */
+.fare-estimate-box {
+  background: rgba(0, 255, 136, 0.04);
+  border: 1px solid rgba(0, 255, 136, 0.12);
+  border-radius: 12px;
+  padding: 14px;
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fare-estimate-title {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+}
+
+.fare-estimate-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--accent-green);
+}
+
+.carbon-saved-tag {
+  font-size: 0.75rem;
+  color: var(--accent-green);
+}
+
+.booking-actions-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.book-btn {
+  flex: 1.5;
+  background: linear-gradient(135deg, var(--accent-cyan), #008eb3);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-weight: 600;
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.book-btn:hover {
+  box-shadow: 0 0 15px var(--accent-cyan-glow);
+  transform: translateY(-1px);
+}
+
+.estimate-btn {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-glass);
+  border-radius: 12px;
+  color: var(--text-primary);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.estimate-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ─── VEHICLE SELECTOR CARD SLIDER ─── */
+.ev-fleet-scroller-panel {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  width: 400px;
+  background: var(--bg-panel);
+  backdrop-filter: blur(25px);
+  border: 1px solid var(--border-glass);
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  z-index: 10;
+}
+
+.panel-subtitle {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  margin: 0 0 12px 4px;
+  letter-spacing: 0.5px;
+}
+
+.ev-cards-scroller {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+
+.ev-cards-scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.ev-fleet-card {
+  min-width: 180px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.ev-fleet-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--accent-cyan);
+  transform: translateY(-2px);
+}
+
+.ev-fleet-card.selected {
+  background: rgba(0, 212, 255, 0.06);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.15);
+}
+
+.ev-fleet-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.ev-fleet-name {
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.ev-fleet-type {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.ev-fleet-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.ev-stat {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ev-fleet-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  padding-top: 6px;
+}
+
+/* ─── RIDE TRACKING TIMELINE / ORDER TRACKER ─── */
+.tracking-order-card {
+  top: 105px;
+  left: 20px;
+  width: 400px;
+  max-height: calc(100vh - 150px);
+  overflow-y: auto;
+}
+
+.tracking-timeline {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: 24px;
+  padding: 0 8px;
+}
+
+.tracking-timeline::before {
+  content: '';
+  position: absolute;
+  top: 16px;
+  left: 24px;
+  right: 24px;
+  height: 2px;
+  background: var(--text-muted);
+  z-index: 1;
+}
+
+.timeline-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 2;
+  opacity: 0.5;
+  transition: all 0.3s;
+}
+
+.timeline-step.active {
+  opacity: 1;
+}
+
+.timeline-step.done {
+  opacity: 1;
+}
+
+.step-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #1a1a2b;
+  border: 2px solid var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+
+.timeline-step.active .step-circle {
+  background: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 10px var(--accent-cyan-glow);
+  color: black;
+}
+
+.timeline-step.done .step-circle {
+  background: var(--accent-green);
+  border-color: var(--accent-green);
+  box-shadow: 0 0 10px var(--accent-green-glow);
+  color: black;
+}
+
+.step-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Driver Info Card */
+.driver-profile-info-box {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.driver-card-top {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.driver-photo-avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--accent-cyan);
+}
+
+.driver-text-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.driver-name-header {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.driver-rating-sub {
+  font-size: 0.8rem;
+  color: var(--accent-green);
+}
+
+.driver-vehicle-details {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.driver-otp-section {
+  display: flex;
+  justify-content: space-between;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border-glass);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 0.88rem;
+}
+
+.driver-otp-section strong {
+  color: var(--accent-cyan);
+  letter-spacing: 2px;
+}
+
+.trip-progress-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.trip-progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.trip-progress-track {
+  height: 6px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.trip-progress-bar {
+  height: 100%;
+  background: var(--accent-green);
+  border-radius: 3px;
+  width: 0%;
+  transition: width 1.5s ease;
+}
+
+.tracking-actions-box {
+  display: flex;
+  gap: 10px;
+}
+
+.start-ride-btn {
+  flex: 1;
+  background: var(--accent-green);
+  color: black;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.start-ride-btn:hover {
+  box-shadow: 0 0 12px var(--accent-green-glow);
+}
+
+.cancel-ride-btn {
+  flex: 1;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border-glass);
+  border-radius: 10px;
+  color: var(--text-primary);
+  font-weight: 600;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cancel-ride-btn:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+/* Chat container with driver */
+.driver-chat-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-glass);
+  border-radius: 12px;
+  background: rgba(0,0,0,0.15);
+  height: 200px;
+  overflow: hidden;
+}
+
+.chat-log-box {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chat-line {
+  display: flex;
+  width: 100%;
+}
+
+.chat-line.driver {
+  justify-content: flex-start;
+}
+
+.chat-line.user {
+  justify-content: flex-end;
+}
+
+.chat-bubble {
+  max-width: 80%;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.chat-line.driver .chat-bubble {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+  border-bottom-left-radius: 2px;
+}
+
+.chat-line.user .chat-bubble {
+  background: var(--accent-cyan);
+  color: black;
+  border-bottom-right-radius: 2px;
+}
+
+.chat-input-row {
+  display: flex;
+  border-top: 1px solid var(--border-glass);
+}
+
+.chat-input-row input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  padding: 10px;
+}
+
+.chat-input-row button {
+  background: none;
+  border: none;
+  color: var(--accent-cyan);
+  font-size: 1rem;
+  padding: 0 14px;
+  cursor: pointer;
+}
+
+/* ─── RIGHT OVERLAY TELEMETRY PANEL ─── */
+.right-telemetry-panel {
+  top: 105px;
+  right: 20px;
+  width: 320px;
+}
+
+.telemetry-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.telemetry-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  padding: 10px 14px;
+  border-radius: 10px;
+}
+
+.telemetry-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.telemetry-val {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.telemetry-val.green {
+  color: var(--accent-green);
+}
+
+.telemetry-divider {
+  height: 1px;
+  background: var(--border-glass);
+  margin: 14px 0;
+}
+
+.telemetry-weather-widget {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.weather-title {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.weather-stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+}
+
+.weather-impact-note {
+  font-size: 0.68rem;
+  color: var(--accent-green);
+  margin: 4px 0 0;
+}
+
+/* Map Layers widget */
+.map-layer-control-panel {
+  position: absolute;
+  top: 105px;
+  right: 360px;
+  width: 200px;
+  padding: 12px;
+}
+
+.control-header {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.layer-checkbox-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.layer-toggle-chip {
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-glass);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.layer-toggle-chip:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+.layer-toggle-chip.active {
+  background: rgba(0, 212, 255, 0.08);
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+}
+
+/* ─── MAP DRAWERS (POPUP EXPANDED CARDS) ─── */
+.map-item-drawer {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 320px;
+  z-index: 50;
+  animation: slideUp 0.3s cubic-bezier(0.1, 0.8, 0.2, 1);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.drawer-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.drawer-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0 0 14px;
+  border-bottom: 1px solid var(--border-glass);
+  padding-bottom: 8px;
+}
+
+.drawer-details-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+}
+
+.drawer-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.text-green { color: var(--accent-green); }
+.text-red { color: var(--accent-red); }
+
+.drawer-action-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--accent-cyan), #008eb3);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.drawer-action-btn:hover {
+  box-shadow: 0 0 10px var(--accent-cyan-glow);
+}
+
+/* ─── FLOATING AI ASSISTANT CHATBOT ─── */
+.ai-assistant-wrapper {
+  position: absolute;
+  bottom: 20px;
+  right: 360px;
+  z-index: 1000;
+}
+
+.ai-fab {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-cyan), #008eb3);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
+  position: relative;
+  transition: transform 0.2s;
+}
+
+.ai-fab:hover {
+  transform: scale(1.05);
+}
+
+.ai-fab-icon {
+  font-size: 1.4rem;
+  color: white;
+}
+
+.ai-fab-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background: var(--accent-green);
+  color: black;
+  font-size: 0.6rem;
+  font-weight: 800;
+  padding: 2px 5px;
+  border-radius: 6px;
+}
+
+.ai-chat-window {
+  position: absolute;
+  bottom: 65px;
+  right: 0;
+  width: 320px;
+  height: 420px;
+  background: var(--bg-panel);
+  backdrop-filter: blur(25px);
+  border: 1px solid var(--border-glass);
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  overflow: hidden;
+  animation: slideUp 0.25s cubic-bezier(0.1, 0.8, 0.2, 1);
+}
+
+.ai-chat-header {
+  padding: 14px;
+  background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid var(--border-glass);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ai-chat-header-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ai-avatar {
+  font-size: 1.4rem;
+}
+
+.ai-chat-title {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.ai-chat-status {
+  font-size: 0.68rem;
+  color: var(--accent-green);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ai-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  box-shadow: 0 0 6px var(--accent-green-glow);
+}
+
+.ai-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.ai-chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ai-message-bubble {
+  max-width: 85%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ai-message-bubble.ai {
+  align-self: flex-start;
+}
+
+.ai-message-bubble.user {
+  align-self: flex-end;
+}
+
+.ai-msg-text {
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.ai-message-bubble.ai .ai-msg-text {
+  background: rgba(255,255,255,0.05);
+  color: var(--text-primary);
+  border-bottom-left-radius: 2px;
+}
+
+.ai-message-bubble.user .ai-msg-text {
+  background: var(--accent-cyan);
+  color: black;
+  border-bottom-right-radius: 2px;
+}
+
+.ai-msg-time {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  align-self: flex-end;
+}
+
+.ai-chat-input-area {
+  display: flex;
+  border-top: 1px solid var(--border-glass);
+}
+
+.ai-chat-input-area input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-size: 0.82rem;
+  padding: 14px;
+}
+
+.ai-send-btn {
+  background: none;
+  border: none;
+  color: var(--accent-cyan);
+  font-size: 1.2rem;
+  padding: 0 16px;
+  cursor: pointer;
+}
+
+/* ─── ADMIN DASHBOARD TAB OVERLAY PANEL ─── */
+.admin-overlay-modal {
+  position: absolute;
+  top: 105px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  background: rgba(10, 10, 20, 0.95);
+  backdrop-filter: blur(35px);
+  border: 1px solid var(--border-glass);
+  border-radius: 24px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  animation: slideUp 0.3s cubic-bezier(0.1, 0.8, 0.2, 1);
+}
+
+.admin-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-glass);
+  padding-bottom: 14px;
+  margin-bottom: 20px;
+}
+
+.admin-header-row h2 {
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+
+.admin-close-btn {
+  background: none;
+  border: none;
+  color: var(--accent-red);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.admin-dashboard-container {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.admin-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.admin-stat-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-glass);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.admin-stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.admin-stat-icon.green { background: rgba(0, 255, 136, 0.1); color: var(--accent-green); }
+.admin-stat-icon.blue { background: rgba(0, 212, 255, 0.1); color: var(--accent-cyan); }
+.admin-stat-icon.cyan { background: rgba(0, 212, 255, 0.1); color: var(--accent-cyan); }
+.admin-stat-icon.red { background: rgba(255, 68, 102, 0.1); color: var(--accent-red); }
+
+.admin-stat-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.admin-stat-title {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.admin-stat-value {
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.admin-stat-sub {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.admin-content-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+.admin-panel {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border-glass);
+  border-radius: 18px;
+  padding: 20px;
+}
+
+.admin-panel-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Tables in admin panel */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.88rem;
+}
+
+.admin-table th, .admin-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.admin-table th {
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.driver-cell-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.driver-vehicle-model {
+  font-weight: 600;
+}
+
+.driver-name-sub {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.battery-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.battery-indicator-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.status-badge.available {
+  background: rgba(0, 255, 136, 0.1);
+  color: var(--accent-green);
+}
+
+.status-badge.on-trip {
+  background: rgba(0, 212, 255, 0.1);
+  color: var(--accent-cyan);
+}
+
+.delete-vehicle-btn {
+  background: rgba(255, 68, 102, 0.1);
+  border: 1px solid rgba(255, 68, 102, 0.2);
+  color: var(--accent-red);
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.78rem;
+  transition: all 0.2s;
+}
+
+.delete-vehicle-btn:hover {
+  background: var(--accent-red);
+  color: white;
+}
+
+/* Deploy Form */
+.admin-panel-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.admin-add-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.form-group-row {
+  display: flex;
+  gap: 12px;
+}
+
+.admin-add-form input, .admin-add-form select {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border-glass);
+  border-radius: 8px;
+  padding: 10px;
+  color: var(--text-primary);
+  outline: none;
+  font-family: inherit;
+  font-size: 0.85rem;
+}
+
+.admin-add-form label {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.admin-submit-btn {
+  background: linear-gradient(135deg, var(--accent-green), #00b359);
+  border: none;
+  border-radius: 8px;
+  color: black;
+  font-weight: 700;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.admin-submit-btn:hover {
+  box-shadow: 0 0 10px var(--accent-green-glow);
+}
+
+/* Capacity bar charts */
+.chart-bar-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.chart-bar-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+}
+
+.chart-bar-track {
+  height: 6px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.chart-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+}
+
+.admin-demand-alert {
+  background: rgba(0, 212, 255, 0.04);
+  border: 1px solid rgba(0, 212, 255, 0.1);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.pulse-alert-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+  box-shadow: 0 0 8px var(--accent-cyan-glow);
+  animation: pulse-glow 1.5s infinite alternate;
+}
+
+@keyframes pulse-glow {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  100% { transform: scale(1.1); opacity: 1; }
+}
+
+/* ─── MAP CUSTOM MARKERS (Pulse, vehicle, pins) ─── */
+.pickup-marker, .dropoff-marker, .vehicle-marker, .station-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.pickup-marker {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+  border: 3px solid white;
+  box-shadow: 0 0 10px var(--accent-cyan-glow);
+  position: relative;
+}
+
+.marker-pulse-ring {
+  position: absolute;
+  top: -6px; left: -6px; right: -6px; bottom: -6px;
+  border: 2px solid var(--accent-cyan);
+  border-radius: 50%;
+  animation: marker-pulse-out 2s infinite;
+}
+
+@keyframes marker-pulse-out {
+  0% { transform: scale(0.6); opacity: 1; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+.marker-pin-inner {
+  color: black;
+  font-weight: 900;
+  font-size: 0.8rem;
+}
+
+.dropoff-marker {
+  width: 24px;
+  height: 24px;
+  background: var(--accent-red);
+  border: 3px solid white;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(255, 68, 102, 0.4);
+}
+
+.vehicle-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transition: transform 0.2s;
+}
+
+.vehicle-marker:hover, .vehicle-marker.selected {
+  transform: scale(1.15);
+  z-index: 1000;
+}
+
+.vehicle-icon-wrapper {
+  font-size: 1.55rem;
+  background: rgba(10, 10, 18, 0.85);
+  backdrop-filter: blur(5px);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2.5px solid var(--accent-cyan);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.vehicle-marker.selected .vehicle-icon-wrapper {
+  border-color: var(--accent-green);
+  box-shadow: 0 0 15px var(--accent-green-glow);
+}
+
+.marker-batt-bubble {
+  position: absolute;
+  bottom: -10px;
+  background: rgba(10,10,18,0.9);
+  padding: 1px 4px;
+  border-radius: 6px;
+  border: 1px solid;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: white;
+}
+
+/* Charging stations */
+.station-marker {
+  position: relative;
+  transition: transform 0.2s;
+}
+
+.station-marker:hover, .station-marker.selected {
+  transform: scale(1.15);
+}
+
+.station-icon-wrapper {
+  font-size: 1.15rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #ffaa00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.station-slots-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: var(--bg-dark);
+  color: #00ff88;
+  font-size: 0.62rem;
+  font-weight: 800;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid #00ff88;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Watermark */
+.map-attribution-watermark {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: rgba(0, 0, 0, 0.4);
+  color: rgba(255,255,255,0.4);
+  font-size: 0.65rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+/* ─── RESPONSIVE RULES ─── */
+@media (max-width: 1024px) {
+  .right-telemetry-panel {
+    display: none; /* Hide telemetry panel on smaller screens, prioritize map and booking */
+  }
+  .map-layer-control-panel {
+    top: auto;
+    bottom: 220px;
+    right: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ev-navbar {
+    flex-direction: column;
+    height: auto;
+    gap: 12px;
+    padding: 12px;
+    top: 10px; left: 10px; right: 10px;
+  }
+  .nav-menu {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .left-booking-card {
+    width: auto;
+    left: 10px;
+    right: 10px;
+    top: 190px;
+    max-height: calc(100vh - 400px);
+  }
+  .ev-fleet-scroller-panel {
+    width: auto;
+    left: 10px; right: 10px;
+  }
+  .tracking-order-card {
+    width: auto;
+    left: 10px; right: 10px;
+    top: 190px;
+  }
+  .ai-assistant-wrapper {
+    bottom: auto;
+    top: 190px;
+    right: 10px;
+  }
+}
